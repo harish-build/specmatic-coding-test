@@ -26,4 +26,6 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
       working-directory: main
+      env:
+        JAVA_TOOL_OPTIONS: -XX:-UseContainerSupport
       run: mvn test
