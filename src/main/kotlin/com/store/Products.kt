@@ -1,6 +1,9 @@
 package com.store
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonSetter
+import com.fasterxml.jackson.annotation.Nulls
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
 
@@ -20,6 +23,10 @@ data class Product(
     @get:Min(1)
     @get:Max(9999)
     val inventory: Int,
+    @param:JsonProperty("cost")
+    @param:JsonSetter(nulls = Nulls.FAIL)
+    @get:JsonInclude(JsonInclude.Include.NON_NULL)
+    val cost: Double? = null,
 ) {
     var id: Int? = null
 }

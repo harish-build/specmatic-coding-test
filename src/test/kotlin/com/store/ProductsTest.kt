@@ -38,4 +38,16 @@ class ProductsTest {
         assertNotEquals(omitted, created)
         assertEquals(listOf(created), products.list(null).map { it.id })
     }
+
+    @Test
+    fun `list keeps a cost when one was given and leaves it unset when it was not`() {
+        val products = Products()
+        val priced = products.create(Product(name = "Phone", type = ProductType.gadget, inventory = 2, cost = 12.5))
+        val unpriced = products.create(Product(name = "Notebook", type = ProductType.book, inventory = 3))
+
+        val listed = products.list(null).associateBy { it.id }
+
+        assertEquals(12.5, listed[priced]?.cost)
+        assertEquals(null, listed[unpriced]?.cost)
+    }
 }

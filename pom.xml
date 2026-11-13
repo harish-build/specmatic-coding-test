@@ -257,9 +257,8 @@
                 <configuration>
                     <mainClass>application.SpecmaticApplication</mainClass>
                     <arguments>
-                        <argument>compatible</argument>
-                        <argument>git</argument>
-                        <argument>file</argument>
+                        <argument>compare</argument>
+                        <argument>src/test/resources/products_api_part1.yaml</argument>
                         <argument>products_api.yaml</argument>
                     </arguments>
                     <includePluginDependencies>true</includePluginDependencies>
@@ -274,6 +273,17 @@
                         <groupId>io.specmatic</groupId>
                         <artifactId>specmatic-executable</artifactId>
                         <version>${specmatic.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.jetbrains.kotlin</groupId>
+                                <artifactId>kotlin-reflect</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-reflect</artifactId>
+                        <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
