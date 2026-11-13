@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         java: [17]
@@ -24,8 +25,9 @@ jobs:
       with:
         distribution: 'oracle'
         java-version: ${{ matrix.java }}
+    - name: Skip Linux container detection
+      if: runner.os == 'Linux'
+      run: echo "JAVA_TOOL_OPTIONS=-XX:-UseContainerSupport" >> "$GITHUB_ENV"
     - name: Build with Maven
       working-directory: main
-      env:
-        JAVA_TOOL_OPTIONS: -XX:-UseContainerSupport
       run: mvn test
